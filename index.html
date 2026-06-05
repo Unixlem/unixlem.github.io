@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#1e3c72">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Unixlem Games - Mobile Games</title>
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <style>
+        /* Глобальный сброс */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ГРАДИЕНТ ЗА ПРЕДЕЛАМИ ЭКРАНА */
+        html {
+            width: 100%;
+            min-height: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overscroll-behavior-y: contain;
+        }
+
+        /* Псевдоэлемент с градиентом, который больше экрана на 100% сверху и снизу */
+        html::before {
+            content: '';
+            position: fixed;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 300%;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            z-index: -9999;
+            pointer-events: none;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 20px 20px 10px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .logo-container {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            max-width: 500px;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                max-width: 250px;
+            }
+        }
+
+        /* GAMES GRID */
+        .games-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        /* ЭФФЕКТЫ ДЛЯ КАРТОЧКИ */
+        .game-card {
+            background: #2c3e50;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 1s ease;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+
+        .game-screenshot {
+            width: 100%;
+            height: auto;
+            max-height: 280px;
+            object-fit: contain;
+            background: #f0f0f0;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .game-title-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .game-info {
+            padding: 30px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-description {
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 1rem;
+            flex: 1;
+        }
+
+        /* Store buttons */
+        .download-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: auto;
+        }
+
+        .store-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            width: 150px;
+            height: 45px;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        .store-button img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .store-button.app-store img {
+            object-fit: contain;
+        }
+
+        .store-button.google-play img {
+            object-fit: cover;
+            transform: scale(1.12);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255,255,255,0.8);
+            animation: fadeIn 1s ease;
+        }
+
+        .contact-email {
+            color: #70AD47;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .contact-email:hover {
+            color: #5B9BD5;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .games-grid {
+                gap: 30px;
+            }
+            
+            .game-card {
+                max-width: 100%;
+            }
+            
+            .game-screenshot {
+                max-height: 220px;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .store-button {
+                width: 130px;
+                height: 39px;
+            }
+        }
+
+        /* LOADING PLACEHOLDER */
+        .image-placeholder {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 20px;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <div class="logo-container">
+                <img src="unixlem-logo.png" 
+                     alt="Unixlem Games Logo" 
+                     class="logo"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                
+                <div style="display: none; background: rgba(255,255,255,0.1); padding: 40px; border-radius: 20px; color: white;">
+                    <h1 style="font-size: 3rem; margin: 0;">
+                        <span style="color: #5B9BD5;">Unixlem</span><br>
+                        <span style="color: #70AD47;">Games</span>
+                    </h1>
+                    <p style="margin-top: 10px; opacity: 0.8;">📷 Add unixlem-logo.png file</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- GAMES SECTION -->
+        <div class="games-grid">
+            
+            <!-- GAME 1: MINESWEEPER -->
+            <div class="game-card">
+                <img src="minesweeper-screenshot.png" 
+                     alt="Minesweeper Game Screenshot" 
+                     class="game-screenshot"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                
+                <div class="image-placeholder" style="display: none;">
+                    📷 Minesweeper Screenshot<br>
+                    <small>Add minesweeper-screenshot.png file</small>
+                </div>
+
+                <div class="game-info">
+                    <img src="minesweeper-title.png" 
+                         alt="Minesweeper" 
+                         class="game-title-image"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                    
+                    <h2 style="display: none; font-size: 2rem; font-weight: 700; margin-bottom: 20px; color: white; text-align: center;">
+                        💣 Minesweeper
+                    </h2>
+
+                    <p class="game-description">
+                        Minesweeper Classic - Puzzle game. Avoid mine, sweeper the board. Brain game
+                    </p>
+                    
+                    <div class="download-buttons">
+                        <a href="https://apps.apple.com/us/app/minesweeper-logic-puzzle/id6636512540?itscg=30200&itsct=apps_box_badge&mttnsubad=6636512540" 
+                           class="store-button app-store" 
+                           target="_blank" 
+                           rel="noopener">
+                            <img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1724803200" 
+                                 alt="Download on the App Store"/>
+                        </a>
+
+                        <a href="https://play.google.com/store/apps/details?id=com.UnixlemGames.Minesweeper" 
+                           class="store-button google-play" 
+                           target="_blank" 
+                           rel="noopener">
+                            <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
+                                 alt="Get it on Google Play"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GAME 2: WATERMELON RUSH -->
+            <div class="game-card">
+                <img src="watermelon-rush-screenshot.png" 
+                     alt="Watermelon Rush Game Screenshot" 
+                     class="game-screenshot"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                
+                <div class="image-placeholder" style="display: none;">
+                    🍉 Watermelon Rush Screenshot<br>
+                    <small>Add watermelon-rush-screenshot.png file</small>
+                </div>
+
+                <div class="game-info">
+                    <img src="watermelon-rush-title.png" 
+                         alt="Watermelon Rush" 
+                         class="game-title-image"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                    
+                    <h2 style="display: none; font-size: 2rem; font-weight: 700; margin-bottom: 20px; color: white; text-align: center;">
+                        🍉 Watermelon Rush
+                    </h2>
+
+                    <p class="game-description">
+                        Rolling Ball & Rush: Fun Physics Drop. Each smash hit changes watermelon look.
+                    </p>
+                    
+                    <div class="download-buttons">
+                        <a href="https://apps.apple.com/us/app/watermelon-rush/id6636548383?itscg=30200&itsct=apps_box_badge&mttnsubad=6636548383" 
+                           class="store-button app-store" 
+                           target="_blank" 
+                           rel="noopener">
+                            <img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1763596800" 
+                                 alt="Download on the App Store"/>
+                        </a>
+
+                        <a href="https://play.google.com/store/apps/details?id=com.UnixlemGames.WatermelonRun" 
+                           class="store-button google-play" 
+                           target="_blank" 
+                           rel="noopener">
+                            <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
+                                 alt="Get it on Google Play"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>© 2026 Unixlem Games. All rights reserved.</p>
+            
+            <a href="mailto:unixlemgames@gmail.com" class="contact-email">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                unixlemgames@gmail.com
+            </a>
+        </footer>
+    </div>
+</body>
+</html>
