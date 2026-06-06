@@ -11,14 +11,12 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     
     <style>
-        /* Глобальный сброс */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        /* ГРАДИЕНТ ЗА ПРЕДЕЛАМИ ЭКРАНА */
+        
         html {
             width: 100%;
             min-height: 100%;
@@ -27,8 +25,7 @@
             padding: 0;
             overscroll-behavior-y: contain;
         }
-
-        /* Псевдоэлемент с градиентом, который больше экрана на 100% сверху и снизу */
+        
         html::before {
             content: '';
             position: fixed;
@@ -58,7 +55,6 @@
             margin: 0 auto;
         }
 
-        /* HEADER */
         header {
             text-align: center;
             margin-bottom: 25px;
@@ -95,7 +91,6 @@
             }
         }
 
-        /* GAMES GRID */
         .games-grid {
             display: flex;
             flex-wrap: wrap;
@@ -104,7 +99,6 @@
             margin-bottom: 60px;
         }
 
-        /* ЭФФЕКТЫ ДЛЯ КАРТОЧКИ */
         .game-card {
             background: #2c3e50;
             border-radius: 20px;
@@ -157,7 +151,6 @@
             flex: 1;
         }
 
-        /* Store buttons */
         .download-buttons {
             display: flex;
             gap: 15px;
@@ -192,7 +185,6 @@
             transform: scale(1.12);
         }
 
-        /* FOOTER */
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -216,7 +208,6 @@
             color: #5B9BD5;
         }
 
-        /* ANIMATIONS */
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -232,7 +223,6 @@
             to { opacity: 1; }
         }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
             .games-grid {
                 gap: 30px;
@@ -257,7 +247,6 @@
             }
         }
 
-        /* LOADING PLACEHOLDER */
         .image-placeholder {
             width: 100%;
             height: 280px;
@@ -296,7 +285,7 @@
         <!-- GAMES SECTION -->
         <div class="games-grid">
             
-            <!-- GAME 1: MINESWEEPER -->
+            <!-- GAME 1 -->
             <div class="game-card">
                 <img src="minesweeper-screenshot.png" 
                      alt="Minesweeper Game Screenshot" 
@@ -342,7 +331,7 @@
                 </div>
             </div>
 
-            <!-- GAME 2: WATERMELON RUSH -->
+            <!-- GAME 2 -->
             <div class="game-card">
                 <img src="watermelon-rush-screenshot.png" 
                      alt="Watermelon Rush Game Screenshot" 
